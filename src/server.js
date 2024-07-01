@@ -23,7 +23,7 @@ const setupServer = () => {
     }),
   );
 
-  app.get('/contacts', router);
+  app.use('/contacts', router);
 
   app.use('*', notFoundHandler);
 

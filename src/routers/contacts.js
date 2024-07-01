@@ -5,9 +5,9 @@ import {
   postContactController,
   patchContactController,
   deleteContactController,
-} from '../controllers/contacts.js';
+} from '../../src/controllers/contacts.js';
 import { ctrlWrapper } from '../utils/ctrlWrapper.js';
-import { isValidId } from '../middlewares/isValidId.js';
+import { isValidId } from '../../src/middlewares/isValidId.js';
 
 const router = express.Router();
 
