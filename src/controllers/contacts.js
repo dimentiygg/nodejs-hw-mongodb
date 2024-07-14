@@ -6,9 +6,22 @@ import {
   addContact,
 } from '../../src/services/contacts.js';
 import createHttpError from 'http-errors';
+import parsedPaginationParams from '../utils/parsePaginationParams.js';
+import ParseSortParams from '../utils/parseSortParams.js';
+import { contactsFieldList } from '../constants/constants.js';
+import parseContactsFitlerParams from '../utils/parseContactsFilterParams.js';
 
 export const getContactsController = async (req, res) => {
-  const contacts = await getAllContacts();
+  const { page, perPage } = parsedPaginationParams(req.query);
+  const { sortBy, sortOrder } = ParseSortParams(req.query, contactsFieldList);
+  const filter = parseContactsFitlerParams(req.query);
+  const contacts = await getAllContacts({
+    page,
+    perPage,
+    sortBy,
+    sortOrder,
+    filter,
+  });
 
   res.status(200).json({
     status: 200,
