@@ -3,7 +3,10 @@ import { typeList } from '../constants/constants.js';
 const parseBoolean = (value) => {
   if (typeof value !== 'string') return;
 
-  if (!['true;]', 'false'].includes(value)) return;
+  if (!['true', 'false'].includes(value)) return;
+
+  const parsedValue = JSON.parse(value);
+  return parsedValue;
 };
 
 const parseContactsFitlerParams = ({ type, isFavourite }) => {

@@ -3,33 +3,41 @@ import contactsCollection from '../db/models/Contact.js';
 import calcPaginationData from '../utils/calcPaginationData.js';
 
 export const getAllContacts = async ({
-  filter,
-  page,
+  page = 1,
   perPage,
   sortBy = contactsFieldList[0],
   sortOrder = sortOrderList[0],
+  filter,
 }) => {
-  const limit = perPage;
   const skip = (page - 1) * perPage;
-
   const contactsQuery = contactsCollection.find();
 
+  let totalItems = await contactsCollection
+    .find()
+    .merge(contactsQuery)
+    .countDocuments();
+
   if (filter.type) {
-    contactsQuery.where('type').equals(filter.type);
+    contactsQuery.where('contactType').equals(filter.type);
+    totalItems = await contactsCollection
+      .find()
+      .merge(contactsQuery)
+      .countDocuments();
   }
 
   if (filter.isFavourite) {
-    contactsQuery.where('favorite').equals(filter.favorite);
+    contactsQuery.where('isFavourite').equals(filter.isFavourite);
+    totalItems = await contactsCollection
+      .find()
+      .merge(contactsQuery)
+      .countDocuments();
   }
 
   const contacts = await contactsQuery
     .skip(skip)
-    .limit(limit)
-    .sort({ [sortBy]: sortOrder });
-  const totalItems = await contactsCollection
-    .find()
-    .merge(contactsQuery)
-    .countDocuments();
+    .limit(perPage)
+    .sort({ [sortBy]: sortOrder })
+    .exec();
 
   const { totalPages, hasNextPage, hasPrevPage } = calcPaginationData({
     total: totalItems,
