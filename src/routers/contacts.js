@@ -5,13 +5,16 @@ import {
   postContactController,
   patchContactController,
   deleteContactController,
-} from '../../src/controllers/contacts.js';
+} from '../controllers/contacts.js';
 import { ctrlWrapper } from '../utils/ctrlWrapper.js';
-import { isValidId } from '../../src/middlewares/isValidId.js';
+import { isValidId } from '../middlewares/isValidId.js';
 import validateBody from '../middlewares/ValidateBody.js';
 import createContactsSchema from '../validation/contactsSchema.js';
+import authenticate from '../middlewares/authenticate.js';
 
 const router = express.Router();
+
+router.use(authenticate);
 
 router.get('/', ctrlWrapper(getContactsController));
 

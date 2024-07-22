@@ -17,6 +17,14 @@ export const getAllContacts = async ({
     .merge(contactsQuery)
     .countDocuments();
 
+  if (filter.userId) {
+    contactsQuery.where('userId').equals(filter.userId);
+    totalItems = await contactsCollection
+      .find()
+      .merge(contactsQuery)
+      .countDocuments();
+  }
+
   if (filter.type) {
     contactsQuery.where('contactType').equals(filter.type);
     totalItems = await contactsCollection
@@ -55,8 +63,8 @@ export const getAllContacts = async ({
   };
 };
 
-export const getContactById = async (id) => {
-  const contact = await contactsCollection.findById(id);
+export const getContactByFilter = async (filter) => {
+  const contact = await contactsCollection.findOne(filter);
   return contact;
 };
 
