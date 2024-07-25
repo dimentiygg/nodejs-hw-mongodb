@@ -11,6 +11,7 @@ const createContactsSchema = Joi.object({
     .max(20)
     .valid(...typeList)
     .required(),
+  photo: Joi.string(),
 });
 
 export default createContactsSchema;

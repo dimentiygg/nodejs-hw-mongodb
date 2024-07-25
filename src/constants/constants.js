@@ -20,6 +20,12 @@ export const REFRESH_TOKEN_LIFETIME = 30 * 24 * 3600 * 1000;
 
 export const TEMPLATES_DIR = path.join(process.cwd(), 'src', 'templates');
 
+export const TEMP_UPLOAD_DIR = path.resolve('src', 'temp');
+
+export const TEMP_PUBLIC_DIR = path.resolve('src', 'public');
+
+export const TEMP_PHOTO_DIR = path.resolve('src', 'public', 'photo');
+
 export const SMTP = {
   SMTP_HOST: 'SMTP_HOST',
   SMTP_PORT: 'SMTP_PORT',

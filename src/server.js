@@ -7,6 +7,7 @@ import { notFoundHandler } from './middlewares/notFoundHandler.js';
 import { errorHandler } from './middlewares/errorHandler.js';
 import router from './routers/contacts.js';
 import authRouter from './routers/auth.js';
+import { TEMP_PUBLIC_DIR } from './constants/constants.js';
 
 const PORT = Number(env('PORT', '3000'));
 
@@ -17,6 +18,7 @@ const setupServer = () => {
   app.use(cors());
   app.use(cookieParser());
   app.use(express.json());
+  app.use(express.static(TEMP_PUBLIC_DIR));
 
   app.use(
     pino({
