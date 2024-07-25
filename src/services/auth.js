@@ -3,8 +3,8 @@ import { hashValue } from '../utils/hash.js';
 import jwt from 'jsonwebtoken';
 import env from '../utils/env.js';
 import createHttpError from 'http-errors';
-import { sendEmail } from '../utils/SendEmail.js';
 import { SMTP, TEMPLATES_DIR } from '../constants/constants.js';
+import sendEmail from '../utils/sendEmail.js'
 import path from 'node:path';
 import fs from 'node:fs/promises';
 import handlebars from 'handlebars';
@@ -60,7 +60,7 @@ export const requestResetToken = async (email) => {
       subject: 'Reset your password',
       html,
     });
-  } catch (error) {
+  } catch () {
     throw createHttpError(
       500,
       'Failed to send the email, please try again later.',
