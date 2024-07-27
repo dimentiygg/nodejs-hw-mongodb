@@ -10,7 +10,7 @@ tags:
   - name: Contacts
     description: Operations about users.
   - name: Auth
-    description: Auth operations.
+    description: Auth operations
 servers:
   - url: http://localhost:3000
   - url: https://nodejs-hw-mongodb-r24t.onrender.com
